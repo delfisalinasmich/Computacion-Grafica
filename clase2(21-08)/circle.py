@@ -9,10 +9,17 @@ def draw_circle (centerX, centerY, radio):
     while x < -y: #recorro desde 0 hasta el radio
         if decisionPoint > 0:
             y += 1
-            decisionPoint = 2 * (x + y) + 1
+            decisionPoint += 2 * (x + y) + 1
         else:
-            decisionPoint = 2 * x + 1
+            decisionPoint += 2 * x + 1
         points.append((centerX + x, centerY + y))
+        points.append((centerX + y, centerY + x))
+        points.append((centerX - x, centerY + y))
+        points.append((centerX - y, centerY + x))
+        points.append((centerX + x, centerY - y))
+        points.append((centerX + y, centerY - x))
+        points.append((centerX - x, centerY - y))
+        points.append((centerX - y, centerY - x))
         x += 1
     return points
 height = 256
