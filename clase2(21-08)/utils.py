@@ -13,3 +13,13 @@ def set_pixel(canvas, x, y, color=(255,255,255)):
         # fuerza a que cada componente sea int (por si viene como float)
         r, g, b = map(int, color)
         canvas[y][x] = (r, g, b)
+
+def save_png(filename, canvas):
+    """Guarda la imagen en PNG usando Pillow.""" # Texto descriptivo para una función, esto es muy útil
+    h = len(canvas)
+    w = len(canvas[0])
+    im = Image.new("RGB", (w, h))
+    # Flatten de la lista de listas
+    pixels_flat = [pixel for row in canvas for pixel in row] # recorre cada fila de img y dentro de cada fila recorre cada pixel para guardarlo en una sola lista.
+    im.putdata(pixels_flat)
+    im.save(f"{filename}.png", "PNG")
