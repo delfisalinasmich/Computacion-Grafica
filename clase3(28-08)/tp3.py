@@ -16,7 +16,12 @@ class Window (pyglet.window.Window): #ventana
         self.prog = self.ctx.program(vertex_shader=vertex_shader_source, fragment_shader=fragment_shader_source)
         
         # primero definimos una figura, porque esto es por cada figura
-        quad_points = [(-0.5, 0.5), (0.5, 0.5), (0.5, -0.5), (-0.5, -0.5)] # 4 vertices array de puntos x, y
+        quad_points = [
+            (-0.5, 0.5),   # arriba izquierda
+            (0.5, 0.5),    # arriba derecha
+            (-0.5, -0.5),  # abajo izquierda
+            (0.5, -0.5)    # abajo derecha
+        ] # 4 vertices array de puntos x, y
         # ahora lo que hacemos es: al quad me falta decirle los colores
         vertices = []
         for (px, py) in quad_points:
@@ -27,7 +32,14 @@ class Window (pyglet.window.Window): #ventana
         # dato a guardar en memoria: crear el VBO Vertex Buffer Object
         vbo = self.ctx.buffer(vertices_array.tobytes()) #tobytes convierte el array en bytes
         # una instruccion de como esta guardando ese dato: crear el VAO Vertex Array Object
-        self.vao = self.ctx.vertex_array(self.prog, [vbo, '2f 3f', 'in_pos',  'in_color']) #dato de la figura
+        self.vao = self.ctx.vertex_array(
+            self.prog,
+            [(vbo, '2f 3f', 'in_pos', 'in_color')]
+        ) #dato de la figura
+    def on_draw(self):
+        self.clear()
+        self.ctx.clear(0.0, 0.0, 0.0) #renderiza la figura
+        self.vao.render(mode = moderngl.TRIANGLE_STRIP) #renderiza la figura
 
 Window() # crear una instancia de la clase window
 pyglet.app.run() #loop de eventos
