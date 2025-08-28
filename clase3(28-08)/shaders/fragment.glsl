@@ -7,5 +7,5 @@ in vec3 v_color;
 out vec4 f_color; // (r, g, b, alpha) los colores
 
 void main(){
-    f_color = vecr(v_color, 1.0); //agrego una coordenada mas para el alpha, porque el vertice no tiene trasnparencia
+    f_color = vec4(v_color, 1.0); //agrego una coordenada mas para el alpha, porque el vertice no tiene trasnparencia
 }
