@@ -133,21 +133,12 @@ def on_click(event):
 
     elif mode.get() == "eraser":
         x, y = points[-1]  # Último punto clickeado
-        # Borrar en un área de 15x15 píxeles para hacer más fácil el borrado
-        for dx in range(-7, 8):
-            for dy in range(-7, 8):
+        # Borrar en un área de 7x7 píxeles para hacer más fácil el borrado
+        for dx in range(-3, 4):
+            for dy in range(-3, 4):
                 set_pixel(canvas_data, x + dx, y + dy, (0, 0, 0))  # Negro para borrar
         redraw_canvas()
         # No vaciar points para permitir borrado continuo
-
-def save_image():
-    """Función para guardar la imagen usando un diálogo de archivo."""
-    file_path = filedialog.asksaveasfilename(
-        defaultextension=".png",
-        filetypes=[("PNG files", "*.png"), ("All files", "*.*")]
-    )
-    if file_path:
-        save_png(file_path, canvas_data)
 
 tools_frame = tk.Frame(root)
 tools_frame.pack()
@@ -173,6 +164,12 @@ tk.Radiobutton(colors_frame, text="Magenta", variable=current_color, value="mage
 
 save_frame = tk.Frame(root)
 save_frame.pack()
+
+def save_image():
+    file_path = filedialog.asksaveasfilename(defaultextension=".png", filetypes=[("PNG files", "*.png")])
+    if file_path:
+        save_png(canvas_data, file_path)
+
 tk.Button(save_frame, text="Guardar", command=save_image).pack()
 
 # Me suscribo al evento click izquierdo en el canvas creado con Tkinter
