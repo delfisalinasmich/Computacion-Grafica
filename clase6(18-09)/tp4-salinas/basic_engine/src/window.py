@@ -13,6 +13,7 @@ class Window(pyglet.window.Window):
     def on_draw(self):  # se ejecuta por cada frame
         self.clear()
         self.ctx.clear()
+        self.ctx.enable(moderngl.DEPTH_TEST)  # SOLUCIÓN: activar el depth test
         if self.scene:
             self.scene.render()
 

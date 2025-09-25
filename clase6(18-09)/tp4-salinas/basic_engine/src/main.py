@@ -1,3 +1,4 @@
+import os
 from window import Window
 from shader_program import ShaderProgram
 from cube import Cube
@@ -6,8 +7,14 @@ from scene import Scene
 
 # Ventana
 window = Window(800, 600, "Basic Graphic Engine")
+
+# Obtener ruta absoluta a los shaders
+shader_dir = os.path.join(os.path.dirname(__file__), '..', 'shaders')
+vertex_shader_path = os.path.join(shader_dir, 'basic.vert')
+fragment_shader_path = os.path.join(shader_dir, 'basic.frag')
+
 # Shader
-shader_program = ShaderProgram(window.ctx, 'shaders/basic.vert', 'shaders/basic.frag')
+shader_program = ShaderProgram(window.ctx, vertex_shader_path, fragment_shader_path)
 
 # Cámara
 camera = Camera((0, 0, 6), (0, 0, 0), (0, 1, 0), 45, window.width / window.height, 0.1, 100.0)

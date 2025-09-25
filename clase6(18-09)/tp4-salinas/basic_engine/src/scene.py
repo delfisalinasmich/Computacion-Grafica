@@ -17,6 +17,10 @@ class Scene:
 
     def render(self):
         for obj in self.objects:
+            # SOLUCIÓN: calcular y enviar la matriz MVP antes de renderizar cada objeto
+            model = obj.get_model_matrix()
+            mvp = self.projection * self.view * model
+            self.graphics[obj.name].set_uniform('Mvp', mvp)
             self.graphics[obj.name].vao.render()
 
     def on_resize(self, width, height):
