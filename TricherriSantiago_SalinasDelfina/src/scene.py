@@ -1,4 +1,4 @@
-from TricherriSantiago_SalinasDelfina.src.graphics import Graphics
+from graphics import Graphics
 import glm
 import math
 
