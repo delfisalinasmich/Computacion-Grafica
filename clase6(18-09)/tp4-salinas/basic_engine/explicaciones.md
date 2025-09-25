@@ -28,3 +28,9 @@ Porque cada objeto tiene su propia posición, rotación y escala (modelo), y deb
 ### ¿Qué debes hacer para que se vean los cubos?
 En tu método render de la escena, tengo que calcular y envíar la matriz MVP para cada objeto antes de dibujarlo.
 Activar el depth test en cada frame.
+
+
+![alt text](image-1.png)
+
+Esfera:
+![alt text](image-2.png)
