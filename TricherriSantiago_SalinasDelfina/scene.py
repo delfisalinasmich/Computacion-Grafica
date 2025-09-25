@@ -1,5 +1,6 @@
 from graphics import Graphics
 import glm
+import math
 
 class Scene:
     def __init__(self, ctx, camera):
@@ -10,13 +11,25 @@ class Scene:
         self.model = glm.mat4(1)
         self.view = camera.get_view_matrix()
         self.projection = camera.get_perspective_matrix()
+        self.time = 0  # Inicializar el tiempo para animaciones
 
     def add_object(self, obj, shader_program=None):
         self.objects.append(obj)
         self.graphics[obj.name] = Graphics(self.ctx, shader_program, obj.vertices, obj.indices)
 
     def render(self):
+        self.time += 0.01  # Incrementar el tiempo en cada frame
+        # Rotar y animar los objetos fuera del shader y actualizar sus matrices
         for obj in self.objects:
+            obj.rotation.x += 0.8  # rotar en X
+            obj.rotation.y += 0.6  # rotar en Y
+            obj.rotation.z += 0.4  # rotar en Z
+
+            obj.position.x += math.sin(self.time) * 0.01
+
+            model = obj.get_model_matrix()
+            mvp = self.projection * self.view * model
+            self.graphics[obj.name].set_uniform('Mvp', mvp)
             self.graphics[obj.name].vao.render()
 
     def on_mouse_click(self, u, v):

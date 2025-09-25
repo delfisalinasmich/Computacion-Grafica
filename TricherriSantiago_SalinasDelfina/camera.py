@@ -1,6 +1,6 @@
 import glm
 
-from TricherriSantiago_SalinasDelfina.ray import Ray
+from ray import Ray
 
 # Datos de una cámara simple
 class Camera:
