@@ -18,20 +18,15 @@ class Scene:
         self.graphics[obj.name] = Graphics(self.ctx, shader_program, obj.vertices, obj.indices)
 
     def render(self):
-        self.time += 0.01  # Incrementar el tiempo en cada frame
-        # Rotar y animar los objetos fuera del shader y actualizar sus matrices
+        self.time += 0.01
         for obj in self.objects:
-            obj.rotation.x += 0.8  # rotar en X
-            obj.rotation.y += 0.6  # rotar en Y
-            obj.rotation.z += 0.4  # rotar en Z
-
-            obj.position.x += math.sin(self.time) * 0.01
-
+            if(obj.name != "Sprite"):
+                obj.rotation += glm.vec3(0.8, 0.6, 0.4)
+                obj.position.x += math.sin(self.time) * 0.01
+            
             model = obj.get_model_matrix()
             mvp = self.projection * self.view * model
-            self.graphics[obj.name].set_uniform('Mvp', mvp)
-            self.graphics[obj.name].vao.render()
-
+            self.graphics[obj.name].render({'Mvp': mvp})
     def on_mouse_click(self, u, v):
         ray = self.camera.raycast(u, v)
         for obj in self.objects:
