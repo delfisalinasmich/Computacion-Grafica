@@ -3,7 +3,6 @@ from hit import HitBoxOBB
 import numpy as np
 import glm
 
-
 class Quad(Model):
     def __init__(self, position=(0,0,0), rotation=(0,0,0), scale=(1,1,1), name="quad"):
         self.name = name
@@ -14,19 +13,17 @@ class Quad(Model):
    
         vertices = np.array([
             -1, -1, 0,
-            1, -1, 0,
-            1,  1, 0,
+             1, -1, 0,
+             1,  1, 0,
             -1,  1, 0,
         ], dtype="f4")
 
-
         colors = np.array([
-            0,1,1,
-            0,0,1,
-            1,0,1,
-            1,1,0
+            0, 1, 1,
+            0, 0, 1,
+            1, 0, 1,
+            1, 1, 0
         ], dtype='f4')
-
 
         texcoords = np.array([
             0, 0,
@@ -35,7 +32,6 @@ class Quad(Model):
             0, 1,
         ], dtype="f4")
 
-
         normals = np.array([
             0, 0, 1,
             0, 0, 1,
@@ -43,15 +39,12 @@ class Quad(Model):
             0, 0, 1,
         ], dtype="f4")
 
-
         indices = np.array([
             0, 1, 2,
             2, 3, 0
         ], dtype="i4")
 
-
-        super().__init__(vertices, indices, colors= colors, texcoords=texcoords, normals=normals)
-
+        super().__init__(vertices, indices, colors=colors, texcoords=texcoords, normals=normals)
 
     def check_hit(self, origin, direction):
         return self.__colision.check_hit(origin, direction)
@@ -64,5 +57,3 @@ class Quad(Model):
         model = glm.rotate(model, glm.radians(self.rotation.z % 360), glm.vec3(0, 0, 1))
         model = glm.scale(model, self.scale)
         return model
-
-

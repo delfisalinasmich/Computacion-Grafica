@@ -13,9 +13,9 @@ class Scene:
         self.projection = camera.get_perspective_matrix()
         self.time = 0  # Inicializar el tiempo para animaciones
 
-    def add_object(self, obj, shader_program=None):
+    def add_object(self, obj, material):
         self.objects.append(obj)
-        self.graphics[obj.name] = Graphics(self.ctx, shader_program, obj.vertices, obj.indices)
+        self.graphics[obj.name] = Graphics(self.ctx, obj, material)
 
     def render(self):
         self.time += 0.01

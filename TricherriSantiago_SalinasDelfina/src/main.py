@@ -7,15 +7,23 @@ from quad import Quad
 from camera import Camera
 from scene import Scene
 import numpy as np
+import os
 
 # --- Loop principal ---
 
 window = Window(800, 600, "Basic Graphic Engine")
 
-shader_program = ShaderProgram(window.ctx, 'shaders/basic.vert', 'shaders/basic.frag')
-shader_program_skybox = ShaderProgram(window.ctx, 'shaders/sprite.vert', 'shaders/sprite.frag')
+# Obtener ruta absoluta a los shaders
+shader_dir = os.path.join(os.path.dirname(__file__), '..', 'shaders')
+vertex_shader_path = os.path.join(shader_dir, 'basic.vert')
+fragment_shader_path = os.path.join(shader_dir, 'basic.frag')
+vertex_shader_sprite = os.path.join(shader_dir, 'sprite.vert')
+fragment_shader_sprite = os.path.join(shader_dir, 'sprite.frag')
 
-skybox_texture = Texture(image_data= np.array([120, 175, 195, 255], dtype='ui'))
+shader_program = ShaderProgram(window.ctx, vertex_shader_path, fragment_shader_path)
+shader_program_skybox = ShaderProgram(window.ctx, vertex_shader_sprite, fragment_shader_sprite)
+
+skybox_texture = Texture(image_data= np.array([120, 175, 195, 255], dtype='uint8'))
 
 material = Material(shader_program)
 material_sprite = Material(shader_program_skybox, textures_data = [skybox_texture])
