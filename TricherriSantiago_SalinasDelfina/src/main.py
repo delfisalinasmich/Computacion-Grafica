@@ -1,8 +1,8 @@
-from window import Window
-from shader_program import ShaderProgram
-from cube import Cube
-from camera import Camera
-from scene import Scene
+from TricherriSantiago_SalinasDelfina.src.window import Window
+from TricherriSantiago_SalinasDelfina.src.shader_program import ShaderProgram
+from TricherriSantiago_SalinasDelfina.src.cube import Cube
+from TricherriSantiago_SalinasDelfina.src.camera import Camera
+from TricherriSantiago_SalinasDelfina.src.scene import Scene
 
 # --- Loop principal ---
 window = Window(800, 600, "Basic Graphic Engine")

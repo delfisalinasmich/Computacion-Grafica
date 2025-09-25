@@ -1,4 +1,4 @@
-from hit import HitBox
+from hit import HitBox, HitBoxOBB
 import numpy as np
 import glm
 
@@ -8,8 +8,7 @@ class Cube:
         self.position = glm.vec3(*position)
         self.rotation = glm.vec3(*rotation)
         self.scale = glm.vec3(*scale)
-        self.__colision = HitBox(position, scale)
-
+        self.__colision = HitBoxOBB(get_model_matrix=lambda: self.get_model_matrix())
 
     def check_hit(self, origin, direction):
         return self.__colision.check_hit(origin, direction)
