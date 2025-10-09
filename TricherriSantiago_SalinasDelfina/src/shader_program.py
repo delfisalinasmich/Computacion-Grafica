@@ -17,7 +17,6 @@ class ShaderProgram:
                 attributes.append(name)
             if type(member) is Uniform:
                 uniforms.append(name)
-
         self.attributes = list(attributes)
         self.uniforms = uniforms
 
@@ -28,8 +27,8 @@ class ShaderProgram:
                 uniform.write(value.to_bytes())
             elif hasattr(uniform, "value"):
                 uniform.value = value
-        else:
-            print(f"Warning: Uniform '{name}' not found in shader program.")
+
+            # Warning removido (es normal para diferentes shaders tener diferentes uniforms).
 
 class ComputeShaderProgram:
     def __init__(self, ctx, compute_shader_path):

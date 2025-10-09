@@ -11,7 +11,7 @@ from quad import Quad
 WIDTH, HEIGHT = 800, 600
 
 
-SCENE_TYPE = "gpu"  # Opciones: "normal", "cpu", "gpu"
+SCENE_TYPE = "cpu"  # Opciones: "normal", "cpu", "gpu"
 
 
 scene_configs = {
@@ -69,6 +69,7 @@ if SCENE_TYPE == "normal":
     scene = Scene(window.ctx, camera)
     scene.add_object(cube1, material_plastic)
     scene.add_object(cube2, material_glass)
+    scene.add_object(quad, material_ceramic)
 
 
 elif SCENE_TYPE == "cpu":
