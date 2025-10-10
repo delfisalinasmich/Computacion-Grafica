@@ -24,7 +24,7 @@ class Graphics:
         return buffers
 
     def load_textures(self, textures_data):
-        textures = []
+        textures = {}
         for texture in textures_data:
             if texture.image_data:
                 texture_ctx = self.__ctx.texture(texture.size, texture.channels_amount, texture.get_bytes())
@@ -32,25 +32,32 @@ class Graphics:
                     texture_ctx.build_mipmaps()
                 texture_ctx.repeat_x = texture.repeat_x
                 texture_ctx.repeat_y = texture.repeat_y
-                textures.append((texture.name, texture_ctx))
+                textures[texture.name] = (texture, texture_ctx)
         return textures
 
     def bind_to_image(self, name = "u_texture", unit = 0, read = False, write = True):
         self.__textures[name][1].bind_to_image(unit, read, write)
 
-    def update_texture(self, name, texture_data):
-        # Encontrar la textura por nombre y actualizar sus datos
-        for i, (tex_name, texture_ctx) in enumerate(self.__textures):
-            if tex_name == name:
-                texture_ctx.write(texture_data.tobytes())
-                break
+    def update_texture(self, texture_name, new_data):
+        # Verificar si existe la textura
+        if texture_name not in self.__textures:
+            raise ValueError(f"No existe la textura {texture_name}")
+        
+        # Obtener el objeto textura y su contexto
+        texture_obj, texture_ctx = self.__textures[texture_name]
+        
+        # Actualizar los datos de la textura
+        texture_obj.update_data(new_data)
+        
+        # Escribir los bytes actualizados al contexto
+        texture_ctx.write(texture_obj.get_bytes())
 
     def render(self, uniforms):
         for name, value in uniforms.items():
             if name in self.__material.shader_program.prog:
                 self.__material.set_uniform(name, value)
 
-        for i, (name, texture_ctx) in enumerate(self.__textures):
+        for i, (name, (texture, texture_ctx)) in enumerate(self.__textures.items()):
             texture_ctx.use(i)
             self.__material.shader_program.set_uniform(name, i)
 
