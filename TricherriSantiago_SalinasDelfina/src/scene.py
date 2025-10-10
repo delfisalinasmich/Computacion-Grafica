@@ -2,6 +2,9 @@ from graphics import Graphics
 from raytracer import RayTracer, RayTracerGPU
 import glm
 import math
+from graphics import Graphics, ComputeGraphics  # Importar ComputeGraphics
+import numpy as np                              # Importar numpy
+import glm                                       # Importar glm
 
 class Scene:
     def __init__(self, ctx, camera):

@@ -1,5 +1,6 @@
 from texture import Texture
 from shader_program import ComputeShaderProgram
+from bvh import BVH  # Importar BVH desde el archivo bvh
 
 class RayTracer:
     def __init__(self, camera, width, height):

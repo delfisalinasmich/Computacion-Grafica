@@ -1,3 +1,7 @@
+import numpy as np  # Importar numpy
+import glm          # Importar glm
+
+
 class Graphics:
     def __init__(self, ctx, model, material):
         self.__ctx = ctx
